@@ -1,6 +1,6 @@
 # <img src="https://i.postimg.cc/xdctZvWn/1.png" width="69">  Mumbai University Question Paper Renamer 
 
-**Mumbai University Question Paper Renamer ** is a lightweight browser-based tool that helps students and faculty of **Mumbai University** automatically rename question paper files to a standardized and readable format like:
+**Mumbai University Question Paper Renamer** is a lightweight browser-based tool that helps students and faculty of **Mumbai University** automatically rename question paper files to a standardized and readable format like:
 
 ```
 
