@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MU-QP-Renamer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      color: #111827;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .upload-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    input[type="file"] {
+      border: 2px dashed #d1d5db;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    #log {
+      margin-top: 2rem;
+      max-width: 600px;
+      font-size: 0.95rem;
+    }
+
+    .log-entry {
+      padding: 0.5rem 1rem;
+      border-left: 4px solid #10b981;
+      background-color: #ecfdf5;
+      margin-bottom: 0.5rem;
+      border-radius: 0.375rem;
+    }
+
+    .log-error {
+      border-left-color: #ef4444;
+      background-color: #fef2f2;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+<h1>
+  <img src="https://i.postimg.cc/xdctZvWn/1.png" alt="Mumbai University Logo" style="height: 2em; vertical-align: middle; margin-right: 0.5em;">
+  Mumbai University Question Paper Renamer
+</h1>
+	<p>
+    Upload university-style question paper files and automatically rename them to a clean format like
+    <span class="highlight">TCS 2022 May.pdf</span> based on subject, year, and month.
+  </p>
+
+  <div class="upload-box">
+    <input type="file" id="fileInput" multiple />
+  </div>
+
+  <div id="log"></div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const logDiv = document.getElementById("log");
+
+    const subjectMap = {
+      "theoretical-computer-science": "TCS",
+      "software-engineering": "SE",
+      "computer-network": "CN",
+      "computer-networks": "CN",
+      "data-warehousing-mining": "DWM",
+      "data-warehouse-and-mining": "DWM",
+      "internet-programming": "IP"
+    };
+
+    fileInput.addEventListener("change", () => {
+      const files = fileInput.files;
+      logDiv.innerHTML = "";
+
+      for (let file of files) {
+        const originalName = file.name.toLowerCase();
+        const parsed = parseFilename(originalName);
+
+        if (parsed) {
+          const newName = `${parsed.subject} ${parsed.year} ${parsed.month}${getExtension(file.name)}`;
+          downloadRenamedFile(file, newName);
+          logEntry(`✅ Renamed: ${file.name} → <span class="highlight">${newName}</span>`);
+        } else {
+          logEntry(`❌ Skipped: ${file.name} (invalid format or subject not found)`, true);
+        }
+      }
+    });
+
+    function parseFilename(name) {
+      const yearMatch = name.match(/_(20\d{2})_(may|december)/i);
+      if (!yearMatch) return null;
+
+      let subject = null;
+      for (const key in subjectMap) {
+        if (name.includes(key)) {
+          subject = subjectMap[key];
+          break;
+        }
+      }
+      if (!subject) return null;
+
+      return {
+        year: yearMatch[1],
+        month: capitalize(yearMatch[2]),
+        subject: subject
+      };
+    }
+
+    function capitalize(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+
+    function getExtension(filename) {
+      const i = filename.lastIndexOf(".");
+      return i !== -1 ? filename.substring(i) : "";
+    }
+
+    function downloadRenamedFile(file, newName) {
+      const url = URL.createObjectURL(file);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = newName;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+    }
+
+    function logEntry(message, isError = false) {
+      const div = document.createElement("div");
+      div.className = `log-entry ${isError ? "log-error" : ""}`;
+      div.innerHTML = message;
+      logDiv.appendChild(div);
+    }
+  </script>
+
+</body>
+</html>
