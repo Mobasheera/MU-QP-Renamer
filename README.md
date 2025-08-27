@@ -15,17 +15,34 @@ It simplifies bulk file renaming based on subject, year, and month extracted fro
 
 ## 🔧 Features
 
-- ✅ Rename multiple files at once
-- ✅ Fully client-side (no uploads, no data stored)
-- ✅ Clean, readable naming convention
-- ✅ Supports key MU subjects:
+- Rename multiple files at once  
+- Fully client-side (no uploads, no data stored)  
+- Clean, readable naming convention  
+- Supports key Mumbai University subjects:
   - TCS (Theoretical Computer Science)
   - SE (Software Engineering)
   - CN (Computer Networks)
   - DWM (Data Warehousing and Mining)
   - IP (Internet Programming)
+  - M1 (Engineering Mathematics I)
+  - M2 (Engineering Mathematics II)
+  - M3 (Engineering Mathematics III)
+  - M4 (Engineering Mathematics IV)
+  - AOA (Analysis of Algorithm)
+  - DBMS (Database Management System)
+  - OS (Operating System)
+  - MP (Microprocessor)
+  - DSGT (Discrete Structures and Graph Theory)
+  - DS (Data Structure)
+  - DLCA (Digital Logic and Computer Architecture)
+  - CG (Computer Graphics)
+  - EM (Engineering Mechanics)
+  - BEE (Basic Electrical Engineering)
+  - EG (Engineering Graphics)
+  - CP (C Programming)
 
 ---
+
 
 ## 📁 Input Filename Format
 
