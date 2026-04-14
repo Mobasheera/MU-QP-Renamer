@@ -40,6 +40,12 @@ It simplifies bulk file renaming based on subject, year, and month extracted fro
   - BEE (Basic Electrical Engineering)
   - EG (Engineering Graphics)
   - CP (C Programming)
+  - IoT (Internet of Things)
+  - SPCC (System Programming and Compiler Construction)
+  - MC (Mobile Computing)
+  - CSS (Cryptography and System Security)
+  - AI (Artificial Intelligence)
+  - QA (Quantitative Analysis)
 
 ---
 
